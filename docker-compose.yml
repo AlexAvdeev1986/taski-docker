@@ -18,16 +18,18 @@ services:
     # Тут подключаем volume к backend
     volumes:
       - static:/backend_static
+    depends_on:
+      - db
   frontend:
     env_file: .env
     build: ./frontend/
-    command: cp -r /app/build/. /frontend_static/
     volumes:
       - static:/frontend_static
+    command: cp -r /app/build/. /frontend_static/
   gateway:
-    build: ./nginx/
-    env_file: .env
+    build: ./gateway/
+    # А тут подключаем volume со статикой к gateway
     volumes:
-      - static:/staticfiles
+      - static:/staticfiles/
     ports:
       - 8000:80
