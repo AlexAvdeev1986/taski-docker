@@ -1,7 +1,7 @@
 # taski-docker
 
 ### Описание проекта 
-Kittygram - сервис для любителей котиков.
+taski - сервис для любителей котиков.
 
 Что умеет проект:
 
@@ -14,10 +14,10 @@ Kittygram - сервис для любителей котиков.
 1. Клонируйте репозиторий на свой компьютер:
 
     ```bash
-    git clone https://github.com/ShunyaBo/kittygram_final.git
+    git clone https://github.com/ShunyaBo/taski_final.git
     ```
     ```bash
-    cd kittygram_final
+    cd taski_final
     ```
 2. Создайте файл .env и заполните его своими данными. Перечень данных указан в корневой директории проекта в файле .env.example.
 
@@ -28,19 +28,19 @@ Kittygram - сервис для любителей котиков.
 
     ```bash
     cd frontend
-    docker build -t alex886/kittygram_frontend .
+    docker build -t alex886/taski_frontend .
     cd ../backend
-    docker build -t alex886/kittygram_backend .
-    cd ../nginx
-    docker build -t alex886/kittygram_gateway . 
+    docker build -t alex886/taski_backend .
+    cd ../gateway
+    docker build -t alex886/taski_gateway . 
     ```
 
 2. Загрузите образы на DockerHub:
 
     ```bash
-    docker push alex886/kittygram_frontend
-    docker push alex886/kittygram_backend
-    docker push alex886/kittygram_gateway
+    docker push alex886/taski_frontend
+    docker push alex886/taski_backend
+    docker push alex886/taski_gateway
     ```
 
 ### Деплой на сервере
@@ -53,10 +53,10 @@ key NRjeSf
  имя_пользователя@ip_адрес_сервера 
     ```
 
-2. Создайте на сервере директорию kittygram через терминал
+2. Создайте на сервере директорию taski через терминал
 
     ```bash
-    mkdir kittygram
+    mkdir taski
     ```
 
 3. Установка docker compose на сервер:
@@ -69,18 +69,18 @@ key NRjeSf
     sudo apt-get install docker-compose-plugin
     ```
 
-4. В директорию kittygram/ скопируйте файлы docker-compose.production.yml и .env:
+4. В директорию taski/ скопируйте файлы docker-compose.production.yml и .env:
 
     ```bash
-    scp -i path_to_SSH/SSH_name docker-compose.production.yml username@server_ip:/home/username/kittygram/docker-compose.production.yml
+    scp -i path_to_SSH/SSH_name docker-compose.production.yml username@server_ip:/home/username/taski/docker-compose.production.yml
     * ath_to_SSH — путь к файлу с SSH-ключом;
     * SSH_name — имя файла с SSH-ключом (без расширения);
     * username — ваше имя пользователя на сервере;
     * server_ip — IP вашего сервера.g
 
- scp -i /home/ea703557/Загрузки/555/yc-ea703557 docker-compose.production.yml  yc-user@158.160.28.33:/home/yc-user/kittygram/docker-compose.production.yml
+ scp -i /home/ea703557/Загрузки/555/yc-ea703557 docker-compose.production.yml  yc-user@158.160.28.33:/home/yc-user/taski/docker-compose.production.yml
 
- scp -i /home/ea703557/Загрузки/555/yc-ea703557 .env  yc-user@158.160.28.33:/home/yc-user/kittygram/.env
+ scp -i /home/ea703557/Загрузки/555/yc-ea703557 .env  yc-user@158.160.28.33:/home/yc-user/taski/.env
     ```
 
 5. Запустите docker compose в режиме демона:
@@ -125,7 +125,7 @@ key NRjeSf
     server {
     server_tokens    off;
     client_max_body_size 20M;
-    server_name 158.160.28.33, cute-kittygram.ddns.net;
+    server_name 158.160.28.33, alextaski333.ddns.net;
 
     location / {
         proxy_set_header Host $http_host;
@@ -144,7 +144,7 @@ key NRjeSf
 1. Файл workflow уже написан. Он находится в директории
 
     ```bash
-    kittygram/.github/workflows/main.yml
+    taski/.github/workflows/main.yml
     ```
 
 2. Для адаптации его на своем сервере добавьте секреты в GitHub Actions:
@@ -165,27 +165,27 @@ key NRjeSf
 
 #### Что нужно сделать
 
-Настроить запуск проекта Kittygram в контейнерах и CI/CD с помощью GitHub Actions
+Настроить запуск проекта taski в контейнерах и CI/CD с помощью GitHub Actions
 
 #### Как проверить работу с помощью автотестов
 
 В корне репозитория создайте файл tests.yml со следующим содержимым:
 ```yaml
 repo_owner: ваш_логин_на_гитхабе
-kittygram_domain: полная ссылка (https://доменное_имя) на ваш проект Kittygram
+taski_domain: полная ссылка (https://доменное_имя) на ваш проект taski
 taski_domain: полная ссылка (https://доменное_имя) на ваш проект Taski
 dockerhub_username: ваш_логин_на_докерхабе
 ```
 
-Скопируйте содержимое файла `.github/workflows/main.yml` в файл `kittygram_workflow.yml` в корневой директории проекта.
+Скопируйте содержимое файла `.github/workflows/main.yml` в файл `taski_workflow.yml` в корневой директории проекта.
 
 Для локального запуска тестов создайте виртуальное окружение, установите в него зависимости из backend/requirements.txt и запустите в корневой директории проекта `pytest`.
 
 #### Чек-лист для проверки перед отправкой задания
 
 - Проект Taski доступен по доменному имени, указанному в `tests.yml`.
-- Проект Kittygram доступен по доменному имени, указанному в `tests.yml`.
-- Пуш в ветку main запускает тестирование и деплой Kittygram, а после успешного деплоя вам приходит сообщение в телеграм.
-- В корне проекта есть файл `kittygram_workflow.yml`.
+- Проект taski доступен по доменному имени, указанному в `tests.yml`.
+- Пуш в ветку main запускает тестирование и деплой taski, а после успешного деплоя вам приходит сообщение в телеграм.
+- В корне проекта есть файл `taski_workflow.yml`.
 
 
