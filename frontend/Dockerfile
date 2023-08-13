@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:18-slim
 WORKDIR /app
 
 COPY package.json package.json
@@ -9,6 +9,6 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# Эта команда запустит встроенный сервер на Node.js, который будет раздавать
-# содержимое директории /app/build на порте 8000
-CMD ["npx", "-y", "http-server", "-p", "8000", "/app/build"] 
+# Эта команда запустит встроенный сервер на nodeJS, который будет раздавать
+# содержимое директории /app/build на порту 8000
+CMD ["npx", "-y", "http-server", "-p", "8000", "/app/build"]
