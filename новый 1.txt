@@ -1,0 +1,5 @@
+docker volume create pg_data 
+docker run --name db  -e POSTGRES_PASSWORD=mysecretpassword -e POSTGRES_USER=django_user -v pg_data:/var/lib/postgresql/data postgres:13.10
+docker run --name db --env-file .env -v pg_data:/var/lib/postgresql/data postgres:13.10
+docker run --env-file .env --net django-network --name taski_backend_container -p 8000:8000 taski_backend 
+docker exec taski_backend_container python manage.py migrate 
