@@ -37,9 +37,9 @@ taski - сервис для любителей котиков.
 2. Загрузите образы на DockerHub:
 
     ```bash
-    docker push alex886/taski_backend
-    docker push alex886/taski_frontend
-    docker push alex886/taski_gateway
+    docker push alex886/taski_backend:latest
+    docker push alex886/taski_frontend:latest
+    docker push alex886/taski_gateway:latest
     ```
 
 ### Деплой на сервере
