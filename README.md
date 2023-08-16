@@ -26,20 +26,20 @@ taski - сервис для любителей котиков.
 1.  Замените username на ваш логин на DockerHub:
 
     ```bash
-    cd frontend
-    docker build -t alex886/taski_frontend .
-    cd ../backend
-    docker build -t alex886/taski_backend .
+    cd backend
+    docker build -t alex886/taski_backend:latest_backend .
+    cd ../frontend
+    docker build -t alex886/taski_frontend:latest_frontend .
     cd ../gateway
-    docker build -t alex886/taski_gateway . 
+    docker build -t alex886/taski_gateway:latest_gateway . 
     ```
 
 2. Загрузите образы на DockerHub:
 
     ```bash
-    docker push alex886/taski_frontend
-    docker push alex886/taski_backend
-    docker push alex886/taski_gateway
+    docker push alex886/taski_backend:latest_backend
+    docker push alex886/taski_frontend:latest_frontend
+    docker push alex886/taski_gateway:latest_gateway
     ```
 
 ### Деплой на сервере
@@ -181,7 +181,7 @@ dockerhub_username: ваш_логин_на_докерхабе
 
 ```
 server {
-    server_name 158.160.28.33 patsyuk.servemp3.com;
+    server_name 158.160.28.33 alextaski333.ddns.net;
     server_tokens off;
 
     location / {
@@ -190,14 +190,14 @@ server {
     }
 
     listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/patsyuk.servemp3.com/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/patsyuk.servemp3.com/privkey.pem; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/alextaski333.ddns.net/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/alextaski333.ddns.net/privkey.pem; # managed by Certbot
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 }
 
 server {
-    server_name 158.160.28.33 kittygram.myvnc.com;
+    server_name 158.160.28.33 alex86kittygram444.ddns.net;
     server_tokens off;
 
     location / {
@@ -206,29 +206,29 @@ server {
     }
 
     listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/kittygram.myvnc.com/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/kittygram.myvnc.com/privkey.pem; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/alex86kittygram444.ddns.net/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/alex86kittygram444.ddns.net/privkey.pem; # managed by Certbot
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 }
 
 server {
-    if ($host = kittygram.myvnc.com) {
+    if ($host = alex86kittygram444.ddns.net) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
 
     listen 80;
-    server_name 158.160.28.33 kittygram.myvnc.com;
+    server_name 158.160.28.33 alex86kittygram444.ddns.net;
     return 404; # managed by Certbot
 }
 
 server {
-    if ($host = patsyuk.servemp3.com) {
+    if ($host = alextaski333.ddns.net) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
 
     listen 80;
-    server_name 158.160.28.33 patsyuk.servemp3.com;
+    server_name 158.160.28.33 alextaski333.ddns.net;
     return 404; # managed by Certbot
 }
 ```
