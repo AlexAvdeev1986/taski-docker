@@ -80,6 +80,7 @@ key NRjeSf
  scp -i /home/ea703557/Загрузки/555/yc-ea703557 docker-compose.production.yml  yc-user@158.160.28.33:/home/yc-user/taski/docker-compose.production.yml
 
  scp -i /home/ea703557/Загрузки/555/yc-ea703557 .env  yc-user@158.160.28.33:/home/yc-user/taski/.env
+ key NRjeSf
     ```
 
 5. Запустите docker compose в режиме демона:
