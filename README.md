@@ -27,19 +27,19 @@ taski - сервис для любителей котиков.
 
     ```bash
     cd backend
-    docker build -t alex886/taski_backend:latest .
-    cd ../frontend
-    docker build -t alex886/taski_frontend:latest .
-    cd ../gateway
-    docker build -t alex886/taski_gateway:latest . 
+    docker build -t alex886/taski_backend .
+    cd frontend
+    docker build -t alex886/taski_frontend .
+    cd gateway
+    docker build -t alex886/taski_gateway . 
     ```
 
 2. Загрузите образы на DockerHub:
 
     ```bash
-    docker push alex886/taski_backend:latest
-    docker push alex886/taski_frontend:latest
-    docker push alex886/taski_gateway:latest
+    docker push alex886/taski_backend
+    docker push alex886/taski_frontend
+    docker push alex886/taski_gateway
     ```
 
 ### Деплой на сервере
@@ -81,21 +81,52 @@ key NRjeSf
 
  scp -i /home/ea703557/Загрузки/555/yc-ea703557 .env  yc-user@158.160.28.33:/home/yc-user/taski/.env
  key NRjeSf
+
+ Добавьте в файл .env переменные и их значения:
+# Файл .env
+P# Файл .env
+POSTGRES_USER=django_user
+POSTGRES_PASSWORD=mysecretpassword
+POSTGRES_DB=django
+# Добавляем переменные для Django-проекта:
+DB_HOST=db
+DB_PORT=5432
+
+ 
+POSTGRES_USER — имя пользователя БД (необязательная переменная, значение по умолчанию — postgres);
+POSTGRES_PASSWORD — пароль пользователя БД (обязательная переменная для создания БД в контейнере);
+POSTGRES_DB — название базы данных (необязательная переменная, по умолчанию совпадает с POSTGRES_USER).
+Таким образом, можно передать в окружение только переменную POSTGRES_PASSWORD — и будет создана БД с названием postgres и пользователем postgres.
+При запуске контейнера имя файла с переменными окружения передают в параметр --env-file:
+# Старт контейнера с именем db, переменные окружения в .env, 
+# контейнер запустить из образа postgres:13.10
+# Эта команда – для демонстрации, запускать ее не надо
+docker run --name db --env-file .env postgres:13.10 
     ```
 
-5. Запустите docker compose в режиме демона:
+    docker run -d \
+	--name some-postgres \
+	-e POSTGRES_PASSWORD=mysecretpassword \
+	-e PGDATA=/var/lib/postgresql/data/pgdata \
+	-v /custom/mount:/var/lib/postgresql/data \
+	postgres
 
-    ```bash
-    sudo docker compose -f docker-compose.production.yml up -d
-    ```
+sudo docker run --name db \
+       --env-file .env \
+       -v pg_data:/var/lib/postgresql/data \
+       postgres:13.10
+
 
 6. Выполните миграции, соберите статические файлы бэкенда и скопируйте их в /backend_static/static/:
 
     ```bash
-    sudo docker compose -f docker-compose.production.yml exec backend python manage.py migrate
-    sudo docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic
-    sudo docker compose -f docker-compose.production.yml exec backend cp -r /app/collected_static/. /backend_static/static/
-    ```
+Далее выполняем последовательно
+sudo docker compose -f docker-compose.production.yml pull
+sudo docker compose -f docker-compose.production.yml down
+sudo docker compose -f docker-compose.production.yml up -d
+sudo docker compose -f docker-compose.production.yml exec backend python manage.py migrate
+sudo docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic
+sudo docker compose -f docker-compose.production.yml exec backend cp -r /app/collect_static/. /static_backend/static/
 
 7. На сервере в редакторе nano откройте конфиг Nginx:
 
