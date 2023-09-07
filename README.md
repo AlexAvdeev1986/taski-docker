@@ -27,19 +27,19 @@ taski - сервис для любителей котиков.
 
     ```bash
     cd backend
-    docker build -t alex886/taski_backend .
+    docker build -t alex886/taski_backend:latest .
     cd frontend
-    docker build -t alex886/taski_frontend .
+    docker build -t alex886/taski_frontend:latest .
     cd gateway
-    docker build -t alex886/taski_gateway . 
+    docker build -t alex886/taski_gateway:latest . 
     ```
 
 2. Загрузите образы на DockerHub:
 
     ```bash
-    docker push alex886/taski_backend
-    docker push alex886/taski_frontend
-    docker push alex886/taski_gateway
+    docker push alex886/taski_backend:latest
+    docker push alex886/taski_frontend:latest
+    docker push alex886/taski_gateway:latest
     ```
 
 ### Деплой на сервере
