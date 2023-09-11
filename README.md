@@ -122,13 +122,13 @@ sudo docker run --name db \
     ```bash
 Далее выполняем последовательно
 sudo docker compose -f docker-compose.production.yml pull
-sudo docker compose -f docker-compose.production.yml down
-sudo docker compose -f docker-compose.production.yml up -d
+csudo docker compose -f docker-compose.production.yml up -d
 sudo docker compose -f docker-compose.production.yml exec backend python manage.py migrate
 sudo docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic
 sudo docker compose -f docker-compose.production.yml exec backend cp -r /app/collect_static/. /static_backend/static/
 
-
+запускаем 
+docker compose -f docker-compose.production.yml up
 
 7. На сервере в редакторе nano откройте конфиг Nginx:
 
