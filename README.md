@@ -128,6 +128,8 @@ sudo docker compose -f docker-compose.production.yml exec backend python manage.
 sudo docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic
 sudo docker compose -f docker-compose.production.yml exec backend cp -r /app/collect_static/. /static_backend/static/
 
+
+
 7. На сервере в редакторе nano откройте конфиг Nginx:
 
     ```bash
