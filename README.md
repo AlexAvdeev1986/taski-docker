@@ -313,3 +313,25 @@ sed -i 's/\(.\{79\}\)\(.*\)/\1\n\2/g' backend/backend/settings.py
 
 
 
+sudo apt upgrade
+
+посмотреть все докер образы на сервере\
+
+
+
+sudo docker images
+
+sudo docker ps -a
+
+sudo docker stop Image
+sudo docker rm Image
+sudo docker rmi Image Image
+
+
+удалит все докер образы на сервере которые не используются
+sudo docker system prune 
+
+sudo docker rmi -f $(sudo docker images -q)
+
+
+
