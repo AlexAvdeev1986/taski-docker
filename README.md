@@ -47,7 +47,7 @@ taski - сервис для любителей котиков.
 1. Подключитесь к удаленному серверу
 
     ```bash
-    ssh -i /home/ea703557/Загрузки/555/yc-ea703557 yc-user@158.160.28.33
+    ssh -i /home/ea703557/Загрузки/555/yc-ea703557 yc-user@158.160.8.70
 key NRjeSf
  имя_пользователя@ip_адрес_сервера 
     ```
@@ -77,9 +77,9 @@ key NRjeSf
     * username — ваше имя пользователя на сервере;
     * server_ip — IP вашего сервера.g
 
- scp -i /home/ea703557/Загрузки/555/yc-ea703557 docker-compose.production.yml  yc-user@158.160.28.33:/home/yc-user/taski/docker-compose.production.yml
+ scp -i /home/ea703557/Загрузки/555/yc-ea703557 docker-compose.production.yml  yc-user@158.160.8.70:/home/yc-user/taski/docker-compose.production.yml
 
- scp -i /home/ea703557/Загрузки/555/yc-ea703557 .env  yc-user@158.160.28.33:/home/yc-user/taski/.env
+ scp -i /home/ea703557/Загрузки/555/yc-ea703557 .env  yc-user@158.160.8.70:/home/yc-user/taski/.env
  key NRjeSf
 
  Добавьте в файл .env переменные и их значения:
@@ -122,13 +122,14 @@ sudo docker run --name db \
     ```bash
 Далее выполняем последовательно
 sudo docker compose -f docker-compose.production.yml pull
-csudo docker compose -f docker-compose.production.yml up -d
+sudo docker compose -f docker-compose.production.yml down
+sudo docker compose -f docker-compose.production.yml up -d
 sudo docker compose -f docker-compose.production.yml exec backend python manage.py migrate
 sudo docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic
 sudo docker compose -f docker-compose.production.yml exec backend cp -r /app/collect_static/. /static_backend/static/
 
 запускаем 
-docker compose -f docker-compose.production.yml up
+sudo docker compose -f docker-compose.production.yml up
 
 7. На сервере в редакторе nano откройте конфиг Nginx:
 
@@ -215,7 +216,7 @@ dockerhub_username: ваш_логин_на_докерхабе
 
 ```
 server {
-    server_name 158.160.28.33 alextaski333.ddns.net;
+    server_name 158.160.8.70 alextaski333.ddns.net;
     server_tokens off;
 
     location / {
@@ -231,7 +232,7 @@ server {
 }
 
 server {
-    server_name 158.160.28.33 alex86kittygram444.ddns.net;
+    server_name 158.160.8.70 alex86kittygram444.ddns.net;
     server_tokens off;
 
     location / {
@@ -252,7 +253,7 @@ server {
     } # managed by Certbot
 
     listen 80;
-    server_name 158.160.28.33 alex86kittygram444.ddns.net;
+    server_name 158.160.8.70 alex86kittygram444.ddns.net;
     return 404; # managed by Certbot
 }
 
@@ -262,7 +263,7 @@ server {
     } # managed by Certbot
 
     listen 80;
-    server_name 158.160.28.33 alextaski333.ddns.net;
+    server_name 158.160.8.70 alextaski333.ddns.net;
     return 404; # managed by Certbot
 }
 ```
